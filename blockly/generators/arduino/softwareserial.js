@@ -12,7 +12,7 @@
  */
 'use strict';
 
-goog.provide('Blockly.Arduino.serial');
+goog.provide('Blockly.Arduino.softwareSerial');
 
 goog.require('Blockly.Arduino');
 
@@ -23,7 +23,7 @@ goog.require('Blockly.Arduino');
  * @param {!Blockly.Block} block Block to generate the code from.
  * @return {string} Completed code.
  */
-Blockly.Arduino['serial_print'] = function(block) {
+Blockly.Arduino['software_serial_print'] = function(block) {
   var serialId = block.getFieldValue('SERIAL_ID');
   var content = Blockly.Arduino.valueToCode(
       block, 'CONTENT', Blockly.Arduino.ORDER_ATOMIC) || '0';
@@ -49,12 +49,20 @@ Blockly.Arduino['serial_print'] = function(block) {
  * @param {!Blockly.Block} block Block to generate the code from.
  * @return {array} Completed code.
  */
-Blockly.Arduino['serial_setup'] = function(block) {
-  var serialId = block.getFieldValue('SERIAL_ID');
-  var serialSpeed = block.getFieldValue('SPEED');
-  var serialSetupCode = serialId + '.begin(' + serialSpeed + ');';
-  Blockly.Arduino.addSetup('serial_' + serialId, serialSetupCode, true);
+Blockly.Arduino['software_serial_setup'] = function(block) {
+  var rxPin = block.getFieldValue('SS_RX');
+  var txPin = block.getFieldValue('SS_TX');
+  var softwareSerialName = 'bluetooth';
+Blockly.Arduino.reservePin(
+      block, rxPin, Blockly.Arduino.PinTypes.SoftwareSerial, 'SoftwareSerial RX');
+  Blockly.Arduino.reservePin(
+      block, txPin, Blockly.Arduino.PinTypes.SoftwareSerial, 'SoftwareSeria TX');
+
+  Blockly.Arduino.addInclude('softwareSerial', '#include <SoftwareSerial.h>');
+  Blockly.Arduino.addDeclaration('softwareSerial_',
+          'SoftwareSerial ' + softwareSerialName + '('+ rxPin + ', ' + txPin + ');');
+  var serialSetupCode =  softwareSerialName + '.begin(9600);';
+  Blockly.Arduino.addSetup(softwareSerialName, serialSetupCode, true);
   var code = '';
   return code;
 };
-
