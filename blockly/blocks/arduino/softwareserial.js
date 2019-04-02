@@ -48,8 +48,8 @@ Blockly.Blocks['software_serial_setup'] = {
    * @return {!string} Serial instance name.
    * @this Blockly.Block
    */
-  getSerialSetupInstance: function() {
-    return this.getFieldValue('');
+  getSoftwareSerialSetupInstance: function() {
+    return Blockly.Msg.ARD_SOFTWARE_SERIAL;
   },
   /**
    * Updates the content of the the serial related fields.
@@ -64,23 +64,15 @@ Blockly.Blocks['software_serial_setup'] = {
 };
 
 
-/*
-Blockly.Blocks['software_serial_print'] = {
-  init: function() {
-    this.setHelpUrl('http://www.arduino.cc/en/Serial/Print');
+Blockly.Blocks['software_serial_read'] = {
+  init: function(){
     this.setColour(Blockly.Blocks.softwareSerial.HUE);
     this.appendDummyInput()
-        .appendField(new Blockly.FieldDropdown(
-                Blockly.Arduino.Boards.selected.serial), 'SERIAL_ID')
-        .appendField(Blockly.Msg.ARD_SOFTWARE_SERIAL_PRINT);
-    this.appendValueInput('CONTENT');
-    this.appendDummyInput()
-        .appendField(new Blockly.FieldCheckbox('TRUE'), 'NEW_LINE')
-        .appendField(Blockly.Msg.ARD_SERIAL_PRINT_NEWLINE);
+	.appendField(Blockly.Msg.ARD_SOFTWARE_SERIAL)
+	.appendField(Blockly.Msg.ARD_SOFTWARE_SERIAL_READ);
+    this.setOutput(true, Blockly.Types.CHARACTER.output);
     this.setInputsInline(true);
-    this.setPreviousStatement(true, null);
-    this.setNextStatement(true, null);
-    this.setTooltip(Blockly.Msg.ARD_SERIAL_PRINT_TIP);
+
   },
   onchange: function(event) {
     if (!this.workspace || event.type == Blockly.Events.MOVE ||
@@ -89,12 +81,12 @@ Blockly.Blocks['software_serial_print'] = {
     }
 
     // Get the Serial instance from this block
-    var thisInstanceName = this.getFieldValue('SERIAL_ID');
+    var thisInstanceName = Blockly.Msg.ARD_SOFTWARE_SERIAL;
     // Iterate through top level blocks to find setup instance for the serial id
     var blocks = Blockly.mainWorkspace.getTopBlocks();
     var setupInstancePresent = false;
     for (var x = 0; x < blocks.length; x++) {
-      var func = blocks[x].getSerialSetupInstance;
+      var func = blocks[x].getSoftwareSerialSetupInstance;
       if (func) {
         var setupBlockInstanceName = func.call(blocks[x]);
         if (thisInstanceName == setupBlockInstanceName) {
@@ -105,15 +97,56 @@ Blockly.Blocks['software_serial_print'] = {
     }
 
     if (!setupInstancePresent) {
-      this.setWarningText(Blockly.Msg.ARD_SERIAL_PRINT_WARN.replace('%1',
-          thisInstanceName), 'serial_setup');
+      this.setWarningText(Blockly.Msg.ARD_SOFTWARE_SERIAL_WARN.replace('%1',
+          thisInstanceName), 'software_serial_setup');
     } else {
-      this.setWarningText(null, 'serial_setup');
+      this.setWarningText(null, 'software_serial_setup');
     }
   },
-  updateFields: function() {
-    Blockly.Arduino.Boards.refreshBlockFieldDropdown(
-        this, 'SERIAL_ID', 'serial');
+  getBlockType: function(){
+     return Blockly.Types.CHARACTER;
   }
 };
-*/
+
+Blockly.Blocks['software_serial_available'] = {
+  init: function(){
+    this.setColour(Blockly.Blocks.softwareSerial.HUE);
+    this.appendDummyInput()
+	.appendField(Blockly.Msg.ARD_SOFTWARE_SERIAL)
+	.appendField(Blockly.Msg.ARD_SOFTWARE_SERIAL_AVAILABLE);
+    this.setOutput(true, Blockly.Types.BOOLEAN.output);
+   this.setInputsInline(true);
+  },
+  onchange: function(event) {
+    if (!this.workspace || event.type == Blockly.Events.MOVE ||
+        event.type == Blockly.Events.UI) {
+        return;  // Block deleted or irrelevant event
+    }
+
+    // Get the Serial instance from this block
+    var thisInstanceName = Blockly.Msg.ARD_SOFTWARE_SERIAL;
+    // Iterate through top level blocks to find setup instance for the serial id
+    var blocks = Blockly.mainWorkspace.getTopBlocks();
+    var setupInstancePresent = false;
+    for (var x = 0; x < blocks.length; x++) {
+      var func = blocks[x].getSoftwareSerialSetupInstance;
+      if (func) {
+        var setupBlockInstanceName = func.call(blocks[x]);
+        if (thisInstanceName == setupBlockInstanceName) {
+          setupInstancePresent = true;
+          break;
+        }
+      }
+    }
+
+    if (!setupInstancePresent) {
+      this.setWarningText(Blockly.Msg.ARD_SOFTWARE_SERIAL_WARN.replace('%1',
+          thisInstanceName), 'software_serial_setup');
+    } else {
+      this.setWarningText(null, 'software_serial_setup');
+    }
+  },
+  getBlockType: function(){
+     return Blockly.Types.BOOLEAN;
+  }
+};

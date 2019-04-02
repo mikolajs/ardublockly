@@ -17,12 +17,12 @@ goog.provide('Blockly.Arduino.softwareSerial');
 goog.require('Blockly.Arduino');
 
 
+Blockly.Arduino.BLUETOOTH_NAME = 'bluetooth';
 /**
  * Code generator of block for writing to the serial com.
  * Arduino code: loop { Serial.print(X); }
  * @param {!Blockly.Block} block Block to generate the code from.
  * @return {string} Completed code.
- */
 Blockly.Arduino['software_serial_print'] = function(block) {
   var serialId = block.getFieldValue('SERIAL_ID');
   var content = Blockly.Arduino.valueToCode(
@@ -43,6 +43,8 @@ Blockly.Arduino['software_serial_print'] = function(block) {
   return code;
 };
 
+ */
+
 /**
  * Code generator for block for setting the serial com speed.
  * Arduino code: setup{ Serial.begin(X); }
@@ -52,7 +54,7 @@ Blockly.Arduino['software_serial_print'] = function(block) {
 Blockly.Arduino['software_serial_setup'] = function(block) {
   var rxPin = block.getFieldValue('SS_RX');
   var txPin = block.getFieldValue('SS_TX');
-  var softwareSerialName = 'bluetooth';
+  var softwareSerialName = Blockly.Arduino.BLUETOOTH_NAME;
 Blockly.Arduino.reservePin(
       block, rxPin, Blockly.Arduino.PinTypes.SoftwareSerial, 'SoftwareSerial RX');
   Blockly.Arduino.reservePin(
@@ -66,3 +68,13 @@ Blockly.Arduino.reservePin(
   var code = '';
   return code;
 };
+
+Blockly.Arduino['software_serial_read'] = function(block) {
+  var code = Blockly.Arduino.BLUETOOTH_NAME + '.read()';
+  return [code, Blockly.Arduino.ORDER_ATOMIC];
+}
+
+Blockly.Arduino['software_serial_available'] = function(block){
+  var code = Blockly.Arduino.BLUETOOTH_NAME + '.available()';
+  return [code, Blockly.Arduino.ORDER_ATOMIC];
+}

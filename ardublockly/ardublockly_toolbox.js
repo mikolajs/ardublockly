@@ -227,6 +227,9 @@ Ardublockly.TOOLBOX_XML =
 '        <block type="text"></block>' +
 '      </value>' +
 '    </block>' +
+'    <block type="software_serial_setup"></block>' +
+'    <block type="software_serial_read"></block>' +
+'    <block type="software_serial_available"></block>' +
 '    <block type="spi_setup"></block>' +
 '    <block type="spi_transfer"></block>' +
 '    <block type="spi_transfer_return"></block>' +
