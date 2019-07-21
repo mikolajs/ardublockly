@@ -108,3 +108,6 @@ package/ardublocklydocs/site
 
 # The electron package needs the build folder (to be changed in the near future)
 !/package/electron/tasks/build/
+
+# VIM
+.swp
