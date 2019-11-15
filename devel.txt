@@ -1,0 +1,11 @@
+
+to add new blocks:
+edit blockly/blocks/arduino/wifi.js 
+add block to ardublockly/ardublockly/ardublockly_toolbox.js
+
+add messages:
+blockly/msg/en_ardublockly.json
+blockly/msg/js/pl.js
+
+add generators:
+edit blockly/generators/arduino/wifi.js

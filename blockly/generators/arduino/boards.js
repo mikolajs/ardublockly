@@ -315,6 +315,28 @@ Blockly.Arduino.Boards.profiles.esp8266_wemos_d1 = {
               ['D4', 'D4'], ['D5', 'D5'], ['D6', 'D7'], ['D8', 'D8']]
 };
 
+/** ESP8266 for NodeMCU v2. */
+Blockly.Arduino.Boards.profiles.esp8266_nodeMCUv2 = {
+  name: 'ESP8266 NodeMCU v2',
+  description: 'NodeMCU v2 ESP8266 compatible board',
+  compilerFlag: 'esp8266:esp8266:generic',
+  analogPins: [['A0', 'A0']],
+  digitalPins: [['0', '0'], ['2', '2'], ['4', '4'], ['5', '5'], ['10', '10'], ['12', '12'],
+                ['13', '13'], ['14', '14'], ['15', '15'], ['16', '16']],
+  pwmPins: [['0', '0'],['2', '2'],['4', '4'], ['5', '5'],['12', '12'],
+                ['13', '13'], ['14', '14'], ['15', '15']],
+  serial: [['serial', 'Serial']],
+  serialPins: { Serial: [['RX', 'RX'], ['TX', 'TX']] },
+  serialSpeed: Blockly.Arduino.Boards.profiles.uno.serialSpeed,
+  spi: [['SPI', 'SPI']],
+  spiPins: { 'SPI': [['MOSI', '13'], ['MISO', '12'], ['SCK', '14']] },
+  spiClockDivide: Blockly.Arduino.Boards.profiles.uno.spiClockDivide,
+  i2c: [['I2C', 'Wire']],
+  i2cPins: { Wire: [['SDA', '4'], ['SCL', '5']] },
+  i2cSpeed: Blockly.Arduino.Boards.profiles.uno.i2cSpeed,
+  builtinLed: [['BUILTIN_1', '0']],
+  interrupt: [['interrupt0', '2'], ['interrupt1', '3']]
+};
 
 
 /** Set default profile to Arduino standard-compatible board */
