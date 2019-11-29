@@ -24,18 +24,19 @@ goog.require('Blockly.Arduino');
  * @param {!Blockly.Block} block Block to generate the code from.
  * @return {string} Empty string as no code goes into 'loop()'.
  */
-Blockly.Arduino['wifi_server_config'] = function(block) {
+Blockly.Arduino['wifi_connection'] = function(block) {
   var SSIDName = block.getFieldValue('SSID_NAME');
   var SSIDPass = block.getFieldValue('SSID_PASS');
   var globalCode = ''; ///// TODO:
   var loopCode = '';
-  var setupCode = '';
+  var setupCode = 'WiFi.mode(WIFI_AP)';
+  setupCode += 'WiFi.softAP("' + SSIDName + '", "' + SSIDPass + '");';
 
   Blockly.Arduino.addInclude('wifi_esp8266', '#include <ESP8266WiFi.h>');
 
   Blockly.Arduino.addDeclaration(SSIDName, globalCode);
 
-  Blockly.Arduino.addSetup(stepperName, setupCode, true);
+  Blockly.Arduino.addSetup(setupCode, true);
 
   return '';
 };

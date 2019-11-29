@@ -233,6 +233,7 @@ Ardublockly.TOOLBOX_XML =
 '    <block type="spi_setup"></block>' +
 '    <block type="spi_transfer"></block>' +
 '    <block type="spi_transfer_return"></block>' +
+'    <block type="wifi_connection"></block>' +
 '  </category>' +
 '  <sep></sep>' +
 ' <category id="catSensors" name="Sensors">' +

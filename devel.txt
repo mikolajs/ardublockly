@@ -1,6 +1,6 @@
 
 to add new blocks:
-edit blockly/blocks/arduino/wifi.js 
+edit blockly/blocks/arduino/wifi.js
 add block to ardublockly/ardublockly/ardublockly_toolbox.js
 
 add messages:
